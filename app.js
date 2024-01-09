@@ -4,7 +4,7 @@ const router = require("./routes");
 const app = express();
 const cron = require('node-cron');
 const NoteController = require('./controllers/NoteController');
-// const moment = require('moment-timezone');
+
 
 const port = process.env.PORT || 3030;
 const cors = require("cors");
@@ -15,14 +15,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(router);
 
 
-app.listen(port, () => {
+app.listen(port, async () => {
   cron.schedule('0 0 * * *', async () => {
-    // Menjalankan fungsi checkReturnDates setiap hari pukul 00:00
     await NoteController.checkReturnDates();
+    // Menjalankan fungsi checkReturnDates setiap hari pukul 00:00
   });
 
-  let d = new Date()
-  console.log(d);
   
     console.log(`Example app listening on port ${port}`);
   });

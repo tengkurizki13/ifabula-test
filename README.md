@@ -4,7 +4,19 @@
 
 CMS Integration - Server
 
-# Restaurant API Dekomentation
+# Perpustakaan API Dekomentation
+
+## Cara Menjalankan Aplikasi
+
+- jalankan docker.compose nya untuk buat config db nya jika tidak  langsung ke langkah nomer 2 
+- buat database dengan dialect maria db
+- buat database dengan nama "perpustakaan-test"
+- sesuai kan file config.json dengan config databasenya
+- setalah koneksi berhasil maka jalankan "npm i" di terminal
+- kemudian "npm run migrate"
+- kemudian "npm run seed"
+- dan terakhir jalankan aplikasi dengan command ini "npm run seed"
+
 
 ## Endpoint :
 

@@ -32,6 +32,11 @@ const errorHandler = (error, req, res, next) => {
       status = 401;
       message = "you are not authentication";
       break;
+    case "authorization":
+      console.log("masuk codoe");
+      status = 403;
+      message = "forbidden";
+      break;
     case "JsonWebTokenError":
       status = 401;
       message = "Invalid Token";
