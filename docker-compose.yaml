@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  db:
+    image: mariadb:latest
+    container_name: mariadb
+    restart: always
+    environment:
+      - MARIADB_ROOT_PASSWORD=12345
+      - MARIADB_DATABASE=perpustakaan-test
+      - MARIADB_USER=root
+      - MARIADB_PASSWORD=12345
+    ports:
+      - 3306:3306
+    volumes:
+      - contact-manager-mariadb-data:/var/lib/mysql
+      - contact-manager-mariadb-config:/etc/mysql
+#   node_backend:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     restart: unless-stopped
+#     environment:
+#       MARIADB_DATABASE: perpustakaan-test
+#       MARIADB_USER: root
+#       MARIADB_PASSWORD: 12345
+#       MARIADB_ROOT_PASSWORD: 12345
+#       MARIADB_HOST: db
+#     volumes:
+#     - ./:/chat-users
+#     ports:
+#       - "3030:3030"
+#     depends_on:
+#       - db
+
+volumes:
+  contact-manager-mariadb-data:
+  contact-manager-mariadb-config:

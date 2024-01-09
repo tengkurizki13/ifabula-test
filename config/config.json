@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "12345",
+    "database": "perpustakaan-test",
+    "host": "localhost",
+    "dialect": "mariadb"
+  },
+  "test": {
+    "username": "root",
+    "password": "12345",
+    "database": "perpustakaan-test-testing",
+    "host": "localhost",
+    "dialect": "mariadb"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "youapp-backend",
+  "version": "1.0.0",
+  "description": "test untuk BE di youapp",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --detectOpenHandles --forceExit",
+    "start": "npx nodemon app.js",
+    "migrate": "npx sequelize-cli db:migrate",
+    "undo": "npx sequelize-cli db:migrate:undo:all",
+    "seed": "npx sequelize-cli db:seed:all"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mariadb": "^3.2.3",
+    "node-cron": "^3.0.3",
+    "sequelize": "^6.31.1"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3",
+    "sequelize-cli": "^6.6.0"
+  }
+}
