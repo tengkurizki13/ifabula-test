@@ -49,6 +49,7 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false,
+      isAlphanumeric: true,
       validate: {
         notNull: {
           msg: "Password Is Required",
@@ -58,21 +59,27 @@ module.exports = (sequelize, DataTypes) => {
         },
         len: {
           args: 8,
-          msg: "Minimum password length is 8 word",
+          msg: "The password minimum character password is 8 characters",
         },
         isAlphanumeric: {
-          msg: 'Passwords may only consist of alphanumeric characters.',
+          msg: 'The password must contain only letters and numbers.',
+        },
+        combinationChar(value) {
+          if (!/[a-z]/.test(value) || !/[0-9]/.test(value)) {
+            throw new Error('The password must be a combination of numbers and letters');
+          }
         },
         hasUpperCase(value) {
           if (!/[A-Z]/.test(value)) {
-            throw new Error('Password harus mengandung setidaknya 1 huruf kapital.');
+            throw new Error('The password must contain at least 1 capital letter.');
           }
         },
         hasNoSpecialChars(value) {
           if (/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
-            throw new Error('Password tidak boleh mengandung karakter khusus.');
+            throw new Error('The password must not contain special characters.');
           }
         },
+      
       },
     },
     role:  {
@@ -89,10 +96,5 @@ module.exports = (sequelize, DataTypes) => {
     user.password = hashPassword(user.password);
   });
 
-  User.afterCreate((user, option) => {
-    // user.password = hashPassword(user.password);
-    delete user.password
-    console.log(user.password,"after");
-  });
   return User;
 };

@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
-    DateOfReturn: {
+    dateOfReturn: {
       type: DataTypes.DATE,
       allowNull: false,
       validate: {

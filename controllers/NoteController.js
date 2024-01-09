@@ -3,69 +3,6 @@ const { Op } = require('sequelize');
 const moment = require('moment');
 
 class NoteController {
-  static async recordBookBorrowings(req, res, next) {
-    try {
-      const {id} = req.params
-      const {borrowingDate,DateOfReturn,status = "Dipinjam"} = req.body
-
-      // cek user udh pernah minjam atau belum
-
-      let notes = await Note.findOne({
-        where: {
-          userId: req.user.id,
-          [Op.or]: [
-            { status: 'Dipinjam' },
-            { status: 'Telat' },
-          ],
-        },
-      });
-
-      if (notes !== null) {
-        return res.status(400).json(
-          {
-            message: "You have borrowed a book and have not returned it"
-          },
-        );
-      } 
-
-      let note = await Note.create(
-        {
-          borrowingDate,
-          DateOfReturn,
-          status,
-          userId : req.user.id,
-          bookId : Number(id),
-        }
-      );
-
-        let option = {
-          include: [
-            {
-              model: User,
-              attributes: {
-                exclude: ["password"],
-              },
-            },
-            {
-              model: Book,
-            }
-          ]
-        };
-
-      let detail = await Note.findByPk(note.id, option);
-
-      res.status(201).json([
-        {
-          message: "the book was successfully borrowed",
-          data : detail
-        },
-      ]);
-    } catch (error) {
-      console.log(error);
-      next(error);
-    }
-  }
-
   static async getNotes(req, res, next) {
     try {
       let option = {
@@ -84,7 +21,7 @@ class NoteController {
       let notes = await Note.findAll(option);
       res.status(200).json([
         {
-          message: "Profile has been found",
+          message: "Notes has been found",
           data: notes,
         },
       ]);
@@ -124,7 +61,7 @@ class NoteController {
 
       res.status(200).json([
         {
-          message: "Profile has been found",
+          message: "Status has been updated",
           data: detail,
         },
       ]);

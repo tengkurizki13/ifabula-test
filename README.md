@@ -24,9 +24,10 @@ CMS Integration - Server
 
 - POST /api/register
 - POST /api/login
-- POST /api/createProfile
-- GET /api/getProfile
-- PUT /api/updateProfile
+- GET /api/books
+- POST /api/books/:id
+- GET /api/notes
+- PATCH /api/notes/:id
 
 
 ## 1. POST /api/register
@@ -41,9 +42,9 @@ CMS Integration - Server
 
 ```json
 {
-  "email": "rizki@gmail.com",
-  "password": "12345",
-  "username": "rizki"
+  "email": "bejo@gmail.com",
+  "password": "Bejo12345",
+  "username": "bejo"
 }
 ```
 
@@ -54,13 +55,14 @@ Response (201 - Created)
 ```json
 [
   {
-    "massage": "User has been created successfully",
+    "message": "User has been created successfully",
     "data": {
-      "id": 1,
-      "email": "rizki@gmail.com",
-      "username": "rizki",
-      "createdAt": "2024-01-01T14:13:53.000Z",
-      "updatedAt": "2024-01-01T14:13:53.000Z"
+      "id": 3,
+      "email": "bejo@hotmail.com",
+      "username": "bejo",
+      "role": "user",
+      "createdAt": "2024-01-09T20:48:39.000Z",
+      "updatedAt": "2024-01-09T20:48:39.000Z"
     }
   }
 ]
@@ -78,7 +80,31 @@ OR
 }
 OR
 {
+  "message": "Format Email Is Wrong"
+}
+OR
+{
   "message": "Password Is Required"
+}
+OR
+{
+  "message": "Minimum character password is 8 characters"
+}
+OR
+{
+  "message": "The password must contain only letters and numbers.s"
+}
+OR
+{
+  "message": "The password must be a combination of numbers and letters."
+}
+OR
+{
+  "message": "The password must contain at least 1 capital letter."
+}
+OR
+{
+  "message": "The password must not contain special characters."
 }
 OR
 {
@@ -106,23 +132,24 @@ Response (500 - Internal Server Error)
 
 ```json
 {
-  "email": "rizki@gmail.com",
-  "password": "12345"
+  "email": "bejo@gmail.com",
+  "password": "Bejo12345"
 }
 ```
 
 ### Response
 
-Response (200 - Created)
+Response (200 - log in)
 
 ```json
 [
   {
-    "massage": "User has been logged in",
+    "message": "User has been logged in",
     "data": {
-      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzA0MTE4NTEyfQ.W47WxkIC7jvCehQ9KLOdrxoKYNOJkBj8WP9m2RIxUVQ",
-      "id": 1,
-      "email": "rizki@gmail.com"
+      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzA0ODMzNTQwfQ.voYyrn0doLfb048E9u_kKq9qYF3fsDraAkVv1W_zCGA",
+      "id": 3,
+      "email": "bejo@gmail.com",
+      "role": "user"
     }
   }
 ]
@@ -152,11 +179,104 @@ Response (500 - Internal Server Error)
 }
 ```
 
-## 3. POST /api/createProfile
+## 3. GET /api/books
 
 ### Description
 
-- create profile user
+- get all books and dont forget token
+
+### Response
+
+Response (200 - get all book)
+
+```json
+[
+  {
+    "message": "Books has been found",
+    "data": [
+      {
+        "id": 1,
+        "title": "Entrok",
+        "author": "Okky Madasari",
+        "published": "2024-01-09T20:51:25.000Z",
+        "createdAt": "2024-01-09T20:51:25.000Z",
+        "updatedAt": "2024-01-09T20:51:25.000Z"
+      },
+      {
+        "id": 2,
+        "title": "Hilang dalam Dekapan Semeru",
+        "author": "Fajar Raditya",
+        "published": "2024-01-09T20:51:25.000Z",
+        "createdAt": "2024-01-09T20:51:25.000Z",
+        "updatedAt": "2024-01-09T20:51:25.000Z"
+      },
+      {
+        "id": 3,
+        "title": "Sihir Mesir di Tanah Jawa",
+        "author": "Om Hao",
+        "published": "2024-01-09T20:51:25.000Z",
+        "createdAt": "2024-01-09T20:51:25.000Z",
+        "updatedAt": "2024-01-09T20:51:25.000Z"
+      },
+      {
+        "id": 4,
+        "title": "Misteri Patung Garam",
+        "author": "Ruwi Meita",
+        "published": "2024-01-09T20:51:25.000Z",
+        "createdAt": "2024-01-09T20:51:25.000Z",
+        "updatedAt": "2024-01-09T20:51:25.000Z"
+      },
+      {
+        "id": 5,
+        "title": "Narik Sukma",
+        "author": "Dewie Yulliantika Sofia",
+        "published": "2024-01-09T20:51:25.000Z",
+        "createdAt": "2024-01-09T20:51:25.000Z",
+        "updatedAt": "2024-01-09T20:51:25.000Z"
+      },
+      {
+        "id": 6,
+        "title": "Pesta Bunuh Diri",
+        "author": "Daniel Ahmad",
+        "published": "2024-01-09T20:51:25.000Z",
+        "createdAt": "2024-01-09T20:51:25.000Z",
+        "updatedAt": "2024-01-09T20:51:25.000Z"
+      },
+      {
+        "id": 7,
+        "title": "Surat dari Kematian",
+        "author": "Adham T. Fusama",
+        "published": "2024-01-09T20:51:25.000Z",
+        "createdAt": "2024-01-09T20:51:25.000Z",
+        "updatedAt": "2024-01-09T20:51:25.000Z"
+      }
+    ]
+  }
+]
+```
+
+
+Response (401 - authentication)
+
+```json
+{
+  "message": "you are not authentication"
+}
+```
+
+Response (500 - Internal Server Error)
+
+```json
+{
+  "message": "Internal Server Error"
+}
+```
+
+## 4. POST /api/books/1
+
+### Description
+
+- make note to borrow book
 
 ### Request:
 
@@ -164,33 +284,44 @@ Response (500 - Internal Server Error)
 
 ```json
 {
-  "name": "iki",
-  "birthday": "18-02-2001",
-  "height": 150,
-  "weight": 20,
-  "interests": ["bola","mancing"],
+  "borrowingDate": "2024-01-09",
+  "dateOfReturn": "2024-01-11",
 }
 ```
 
 ### Response
 
-Response (200 - Created)
+Response (201 - craeted)
 
 ```json
-[
+ [
   {
-    "message": "Profile has been created",
+    "message": "the book was successfully borrowed",
     "data": {
       "id": 1,
-      "email": "rizki@gmail.com",
-      "username": "rizki",
-      "name": "iki",
-      "birthday": "18-02-2001",
-      "height": 150,
-      "weight": 20,
-      "interests": "[\"bola\",\"mancing\"]",
-      "createdAt": "2024-01-01T14:13:53.000Z",
-      "updatedAt": "2024-01-01T14:29:56.000Z"
+      "borrowingDate": "2024-01-09T17:00:00.000Z",
+      "dateOfReturn": "2024-01-10T17:00:00.000Z",
+      "status": "Dipinjam",
+      "userId": 2,
+      "bookId": 1,
+      "createdAt": "2024-01-09T21:10:07.000Z",
+      "updatedAt": "2024-01-09T21:10:07.000Z",
+      "User": {
+        "id": 2,
+        "email": "rina@gmail.com",
+        "username": "rina",
+        "role": "admin",
+        "createdAt": "2024-01-09T21:09:47.000Z",
+        "updatedAt": "2024-01-09T21:09:47.000Z"
+      },
+      "Book": {
+        "id": 1,
+        "title": "Entrok",
+        "author": "Okky Madasari",
+        "published": "2024-01-09T21:09:47.000Z",
+        "createdAt": "2024-01-09T21:09:47.000Z",
+        "updatedAt": "2024-01-09T21:09:47.000Z"
+      }
     }
   }
 ]
@@ -200,23 +331,15 @@ Response (400 - Bad Request)
 
 ```json
 {
-  "message": "Name Is Required"
+  "message": "BorrowingDate Is Required"
 }
 OR
 {
-  "message": "Birthday Is Required"
+  "message": "dateOfReturn Is Required"
 }
 OR
 {
-  "message": "Height Is Required"
-}
-OR
-{
-  "message": "Weight Is Required"
-}
-OR
-{
-  "message": "Interests Is Required"
+  "message": "You have borrowed a book and have not returned it"
 }
 ```
 
@@ -236,41 +359,67 @@ Response (500 - Internal Server Error)
 }
 ```
 
-## 4. GET /api/getProfile
+## 5. GET /api/notes
 
 ### Description
 
-- get porfile
+- get all notes and dont forget token 
+- authorization for admin 
 
 ### Response
 
-Response (200 - get)
+Response (200 - get all notes)
 
 ```json
 [
   {
-    "message": "Profile has been found",
-    "data": {
-      "id": 1,
-      "email": "rizki@gmail.com",
-      "username": "rizki",
-      "name": "iki",
-      "birthday": "18-02-2001",
-      "height": 150,
-      "weight": 20,
-      "interests": "[\"bola\",\"mancing\"]",
-      "createdAt": "2024-01-01T14:13:53.000Z",
-      "updatedAt": "2024-01-01T14:32:37.000Z"
-    }
+    "message": "Notes has been found",
+    "data": [
+      {
+        "id": 1,
+        "borrowingDate": "2024-01-08T17:00:00.000Z",
+        "dateOfReturn": "2024-01-10T17:00:00.000Z",
+        "status": "Dipinjam",
+        "userId": 2,
+        "bookId": 1,
+        "createdAt": "2024-01-09T21:10:07.000Z",
+        "updatedAt": "2024-01-09T21:10:07.000Z",
+        "User": {
+          "id": 2,
+          "email": "rina@gmail.com",
+          "username": "rina",
+          "role": "admin",
+          "createdAt": "2024-01-09T21:09:47.000Z",
+          "updatedAt": "2024-01-09T21:09:47.000Z"
+        },
+        "Book": {
+          "id": 1,
+          "title": "Entrok",
+          "author": "Okky Madasari",
+          "published": "2024-01-09T21:09:47.000Z",
+          "createdAt": "2024-01-09T21:09:47.000Z",
+          "updatedAt": "2024-01-09T21:09:47.000Z"
+        }
+      }
+    ]
   }
 ]
 ```
+
 
 Response (401 - authentication)
 
 ```json
 {
   "message": "you are not authentication"
+}
+```
+
+Response (403 - authorization)
+
+```json
+{
+  "message": "forbidden"
 }
 ```
 
@@ -282,11 +431,11 @@ Response (500 - Internal Server Error)
 }
 ```
 
-## 5. PUT /api/createProfile
+## 6. PATCH /api/notes/:id
 
 ### Description
 
-- updated profile user
+- change status note
 
 ### Request:
 
@@ -294,11 +443,7 @@ Response (500 - Internal Server Error)
 
 ```json
 {
-  "name": "ura",
-  "birthday": "18-02-2001",
-  "height": 150,
-  "weight": 20,
-  "interests": ["bola","mancing"],
+  "status": "Dikembalikan",
 }
 ```
 
@@ -307,53 +452,53 @@ Response (500 - Internal Server Error)
 Response (200 - updated)
 
 ```json
+ [
   {
-    "message": "Profile has been updated",
+    "message": "Status has been updated",
     "data": {
       "id": 1,
-      "email": "rizki@gmail.com",
-      "username": "rizki",
-      "name": "ura",
-      "birthday": "18-02-2001",
-      "height": 150,
-      "weight": 20,
-      "interests": "[\"bola\",\"mancing\"]",
-      "createdAt": "2024-01-01T14:13:53.000Z",
-      "updatedAt": "2024-01-01T14:41:45.000Z"
+      "borrowingDate": "2024-01-08T17:00:00.000Z",
+      "dateOfReturn": "2024-01-10T17:00:00.000Z",
+      "status": "Dikembalikan",
+      "userId": 2,
+      "bookId": 1,
+      "createdAt": "2024-01-09T21:10:07.000Z",
+      "updatedAt": "2024-01-09T21:17:42.000Z",
+      "User": {
+        "id": 2,
+        "email": "rina@gmail.com",
+        "username": "rina",
+        "role": "admin",
+        "createdAt": "2024-01-09T21:09:47.000Z",
+        "updatedAt": "2024-01-09T21:09:47.000Z"
+      },
+      "Book": {
+        "id": 1,
+        "title": "Entrok",
+        "author": "Okky Madasari",
+        "published": "2024-01-09T21:09:47.000Z",
+        "createdAt": "2024-01-09T21:09:47.000Z",
+        "updatedAt": "2024-01-09T21:09:47.000Z"
+      }
     }
   }
 ]
 ```
 
-Response (400 - Bad Request)
-
-```json
-{
-  "message": "Name Is Required"
-}
-OR
-{
-  "message": "Birthday Is Required"
-}
-OR
-{
-  "message": "Height Is Required"
-}
-OR
-{
-  "message": "Weight Is Required"
-}
-OR
-{
-  "message": "Interests Is Required"
-}
-```
 
 Response (401 - authentication)
 
 ```json
 {
   "message": "you are not authentication"
+}
+```
+
+Response (403 - authorization)
+
+```json
+{
+  "message": "forbidden"
 }
 ```
 
