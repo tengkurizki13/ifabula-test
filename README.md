@@ -13,8 +13,8 @@ CMS Integration - Server
 - buat database dengan nama "perpustakaan-test"
 - sesuai kan file config.json dengan config databasenya
 - setalah koneksi berhasil maka jalankan "npm i" di terminal
-- kemudian "npm run migrate"
-- kemudian "npm run seed"
+- kemudian "npm run migrate" untuk buat table
+- kemudian "npm run seed" untuk masukan data dummy
 - dan terakhir jalankan aplikasi dengan command ini "npm run seed"
 
 

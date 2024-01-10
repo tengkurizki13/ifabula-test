@@ -5,6 +5,8 @@ const moment = require('moment');
 class NoteController {
   static async getNotes(req, res, next) {
     try {
+
+      // condotional
       let option = {
         include: [
           {
@@ -18,6 +20,9 @@ class NoteController {
           }
         ]
       };
+
+
+      // query select all notes
       let notes = await Note.findAll(option);
       res.status(200).json([
         {
@@ -26,7 +31,8 @@ class NoteController {
         },
       ]);
     } catch (error) {
-      console.log(error,"insafsad");
+
+      // log error
       next(error);
     }
   }
@@ -34,15 +40,27 @@ class NoteController {
 
   static async changeStatus(req, res, next) {
     try {
+
+      // get req params
       const {id} =  req.params
+
+      // get req.body
       const {status} =  req.body
+
+
+      // conditional
       let option = {
        where: {id}
       };
+
+
+      // query update status note
       await Note.update({
         status
       },option);
 
+
+      // conditonal
       let optionFind = {
         include: [
           {
@@ -57,8 +75,11 @@ class NoteController {
         ]
       };
 
+      // get detail status has been updated and query by id
     let detail = await Note.findByPk(id, optionFind);
 
+
+    // response
       res.status(200).json([
         {
           message: "Status has been updated",
@@ -66,7 +87,8 @@ class NoteController {
         },
       ]);
     } catch (error) {
-      console.log(error,"insafsad");
+
+      // log error
       next(error);
     }
   }
@@ -74,7 +96,10 @@ class NoteController {
   static async checkReturnDates() {
     try {
 
+      // get date by local with library
       const currentDate = moment(); 
+
+      // query all data with dateof return less that date
       const overdueBooks = await Note.findAll({
         where: {
           DateOfReturn: {
@@ -86,9 +111,14 @@ class NoteController {
 
       // Mengubah status buku yang melebihi tanggal pengembalian
 
+      // check data note
       if (overdueBooks.length !== 0 ) {
         for (const book of overdueBooks) {
+
+          // change status
           book.status = 'Telat';
+
+          // save data
           await book.save();
         }
         console.log('Status buku diperbarui');

@@ -38,6 +38,9 @@ class UserController {
         },
       });
 
+
+      // Check that the user has borrowed a book
+
       if (notes !== null) {
         return res.status(400).json(
           {
@@ -45,6 +48,9 @@ class UserController {
           },
         );
       } 
+
+
+      // create note
 
       let note = await Note.create(
         {
@@ -55,6 +61,8 @@ class UserController {
           bookId : Number(id),
         }
       );
+
+      // contional
 
         let option = {
           include: [
@@ -70,8 +78,13 @@ class UserController {
           ]
         };
 
+
+        // quey to select by id
+
       let detail = await Note.findByPk(note.id, option);
 
+
+      // response
       res.status(201).json([
         {
           message: "the book was successfully borrowed",

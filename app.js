@@ -20,7 +20,6 @@ app.listen(port, async () => {
     await NoteController.checkReturnDates();
     // Menjalankan fungsi checkReturnDates setiap hari pukul 00:00
   });
-
   
     console.log(`Example app listening on port ${port}`);
   });

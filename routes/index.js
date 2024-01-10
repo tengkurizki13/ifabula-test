@@ -5,15 +5,21 @@ const userRoutes = require("./userRoutes");
 const bookRoute = require("./bookRoute");
 const authentication = require("../middleware/authentication");
 
+
+// testing "/"
 router.get("/", (req, res) => {
   res.send("ok");
 });
 
+
+// routes
 router.use(userRoutes);
 router.use(authentication);
 router.use(noteRoutes);
 router.use(bookRoute);
 
+
+// hanlder error
 const errorHandler = (error, req, res, next) => {
   let status = 500;
   let message = "Internal Server Error";
